@@ -1,70 +1,64 @@
 import os
+import nltk
+from nltk.tokenize import word_tokenize
 
 class FileReader:
     
-    def __init__(self):
-        pass
+    def __init__(self, path):
+        self.path = path
         
-    def read(self, way):
-        content = ''
+    def read(self):
         try:
-            with open(os.path.abspath(way), 'r', encoding = 'utf-8') as self.f:
-                for line in self.f:
-                    content = content + line + ' '
-            self.f.close()
-            return content
+            with open (self.path, 'r', encoding = 'utf-8') as f:
+                return f.read()
         
         except (FileNotFoundError):
-            return content
+            return ' '
 
-    def write(self, way, data):
-        with open(os.path.abspath(way), 'a', encoding = 'utf-8') as self.f:
-            self.f.write(data)
+    def write(self, data):
+        with open(self.path, 'a', encoding = 'utf-8') as f:
+            f.write(data)
             
-    def count(self, way):
+    def count(self):
         line_count = 0
         word_count = 0
         
         try:
-            with open(os.path.abspath(way), 'r', encoding = 'utf-8') as self.f:
-                for line in self.f:
+            with open(self.path, 'r', encoding = 'utf-8') as f:
+                for line in f:
                     line_count += 1
-                    for word in line:
-                        word_count += 1
-            self.f.close()
+                words = word_tokenize(f)
+                for word in words:
+                    word_count += 1
             return line_count, word_count
         
         except (FileNotFoundError):
             return line_count, word_count
             
-    def __add__(self, way1, way2):
+    def __add__(self, file):
         data = ''
         files = []
         try:
-            files.append(way1)
-            files.append(way2)
-            for file in files:
-                with open(os.path.abspath(file), 'r', encoding = 'utf-8') as self.f:
-                    for line in self.f:
-                        data = data + line + ' '
-                self.f.close()
+            files.append(self.path)
+            files.append(file)
+            for item in files:
+                with open(item, 'r', encoding = 'utf-8') as f:
+                    data = data + f.read()
         
         except (FileNotFoundError):
             print('Файл не найден')
 
         new = input('Введите название нового файла ')
-        way = os.getcwd() + new
-        new_file = FileReader()
-        new_file.write(way, data)
+        path = os.getcwd() + new
+        new_file = FileReader(path)
+        new_file.write(data)
         return new_file
 
     def __str__(self):
-        return os.path.abspath(way)
+        return self.path
         
 #data = input('Что записать в файл? ')       
-#way1 = input('Введите имя первого файла ')
-#way2 = input('Введите имя второго файла ')
-#way = input('Введите имя файла ')
-#book = FileReader()
-
-
+#name = 'new_file.txt'
+#path = os.path.abspath(name)
+#print(path)
+#book = FileReader(path)

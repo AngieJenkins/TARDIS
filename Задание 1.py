@@ -6,7 +6,7 @@ class OneIndexedList:
         return self.items[idx-1]
         
     def __setitem__(self, idx, value):
-        self.items[idx] = value
+        self.items[idx-1] = value
         
 
 b = OneIndexedList([1,2,3])

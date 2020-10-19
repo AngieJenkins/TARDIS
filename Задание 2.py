@@ -19,6 +19,7 @@ class FileReader:
         with open(self.path, 'a', encoding = 'utf-8') as f:
             f.write(data)
             
+            
     def count(self):
         line_count = 0
         word_count = 0
@@ -27,9 +28,10 @@ class FileReader:
             with open(self.path, 'r', encoding = 'utf-8') as f:
                 for line in f:
                     line_count += 1
-                words = word_tokenize(f)
-                for word in words:
-                    word_count += 1
+                    words = word_tokenize(line)
+
+                    for word in words:
+                        word_count += 1
             return line_count, word_count
         
         except (FileNotFoundError):

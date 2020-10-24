@@ -10,8 +10,8 @@ import pickle
 
 class UnigramMorphAnalyzer:
 
-    def __init__(self, endings_stat):
-        self.endings_stat = endings_stat
+    def __init__(self):
+        self.endings_stat = {}
 
     def train_1(self, path, name):
         records = load_corpora(path)
@@ -128,10 +128,9 @@ path = 'C:\\Users\\asus\\Desktop\\annot_opcorpora_xml_byfile.zip'
 name = 'pos_data'
 name2 = 'pos_data.txt'
 token = 'мама'
-endings_stat = {}
 key = 'ник'
 
-Unigram_Analyser = UnigramMorphAnalyzer(endings_stat)
+Unigram_Analyser = UnigramMorphAnalyzer()
 #print(Unigram_Analyser.eval())
 #Unigram_Analyser.train_2(name)
 #Unigram_Analyser.save()

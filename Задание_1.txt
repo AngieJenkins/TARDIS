@@ -1,0 +1,5 @@
+regular expression:
+(^.+? )(.+)
+
+substitution:
+\2, \1
